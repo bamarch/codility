@@ -1,0 +1,65 @@
+#####
+# Compiled sources
+#####
+*.class
+bin/
+build/
+target/
+
+
+
+#####
+# Eclipse IDE
+#####
+.metadata/
+Servers/
+.project
+.classpath
+.settings/
+test-output/
+.springBeans
+.recommenders/
+
+
+#####
+# IntelliJ
+#####
+.idea/
+*.iml
+classes/
+out/
+
+
+#####
+# Gradle
+# NOTE: gradle-wrapper scripts and JAR file should be in VCS (see
+# https://docs.gradle.org/current/dsl/org.gradle.api.tasks.wrapper.Wrapper.html)
+#####
+.gradle/
+local.properties
+
+
+#####
+# Test files
+#####
+cookies.txt
+
+
+
+#####
+# Others
+#####
+*.log
+*.log.gz
+createDDL.jdbc
+.pmd
+/errors.json
+nodejs/
+node_modules/
+rebelscriptie.vim
+
+# JS Ignores for CRM Project
+/webapps/baufi-crm-war/src/main/js/.tmp
+Würde src/main/groovy/ löschen
+Würde src/test/groovy/ löschen
+Würde src/test/resources/ löschen
