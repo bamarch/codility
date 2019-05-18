@@ -1,14 +1,4 @@
 package solutions.march.nailingplanks;
-//----------------------------------------------------------------------------------------------------------------------
-// Copy from here until the next dotted line when submitting to codility
-
-import static java.lang.Integer.max;
-import static java.lang.Integer.min;
-
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.stream.IntStream;
-
 //   Given two non-empty arrays A and B consisting of N integers and a non-empty array C consisting of M integers, returns the minimum number of nails that, used sequentially, allow all the planks to be nailed.
 //
 //    If it is not possible to nail all the planks, the function should return −1.
@@ -32,6 +22,15 @@ import java.util.stream.IntStream;
 //    N and M are integers within the range [1..30,000];
 //    each element of arrays A, B, C is an integer within the range [1..2*M];
 //    A[K] ≤ B[K].
+//----------------------------------------------------------------------------------------------------------------------
+// Copy from here until the next dotted line when submitting to codility
+
+import static java.lang.Integer.max;
+import static java.lang.Integer.min;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.stream.IntStream;
 
 class Solution {
     public int solution(int[] A, int[] B, int[] C) {

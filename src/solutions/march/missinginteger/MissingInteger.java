@@ -1,12 +1,4 @@
 package solutions.march.missinginteger;
-//----------------------------------------------------------------------------------------------------------------------
-// Copy from here until the next dotted line when submitting to codility
-
-import java.util.Arrays;
-import java.util.HashSet;
-
-import java.util.stream.IntStream;
-
 //    Write a function:
 //
 //        class Solution { public int solution(int[] A); }
@@ -23,6 +15,14 @@ import java.util.stream.IntStream;
 //
 //    N is an integer within the range [1..100,000];
 //    each element of array A is an integer within the range [−1,000,000..1,000,000].
+//----------------------------------------------------------------------------------------------------------------------
+// Copy from here until the next dotted line when submitting to codility
+
+import java.util.Arrays;
+import java.util.HashSet;
+
+import java.util.stream.IntStream;
+
 
 class Solution {
     public int solution(int[] A) {
@@ -48,9 +48,10 @@ class Solution {
 
 //----------------------------------------------------------------------------------------------------------------------
 // Dont copy this part into codility test window (contains entry point and test cases)
+
 public class MissingInteger {
     public static void main(String[] args) {
-        Solution sol = new Solution();
+        maxcounters.Solution sol = new maxcounters.Solution();
 
         // from question
         assert sol.solution(new int[]{1, 3, 6, 4, 1, 2}) == 5;
