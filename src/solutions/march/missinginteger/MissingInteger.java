@@ -4,8 +4,7 @@ package solutions.march.missinginteger;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
+
 import java.util.stream.IntStream;
 
 //    Write a function:
@@ -27,12 +26,22 @@ import java.util.stream.IntStream;
 
 class Solution {
     public int solution(int[] A) {
-        List<Integer> positiveNumbers = Arrays.stream(A).filter(x -> x>0).boxed().collect(Collectors.toList());
-        HashSet<Integer> postitiveSet = new HashSet<>(positiveNumbers);
 
-        int smallestAbsentInt = IntStream.rangeClosed(1,100000).filter(x -> !postitiveSet.contains(x)).findFirst().orElse(100001);
+        Integer[] boxedA = new Integer[A.length];
+        for (int i = 0; i < A.length; i++) {
+            boxedA[i] = A[i];
+        }
+        HashSet hashSet = new HashSet<Integer>(Arrays.asList(boxedA));
 
-        System.out.println(smallestAbsentInt);
+        int smallestAbsentInt = 100001;
+        for (int i = 1; i <= 100000 ; i++) {
+            if (!hashSet.contains(i)) {
+                smallestAbsentInt = i;
+                break;
+            }
+        }
+
+        //System.out.println(smallestAbsentInt);
         return smallestAbsentInt;
     }
 }
@@ -43,16 +52,14 @@ public class MissingInteger {
     public static void main(String[] args) {
         Solution sol = new Solution();
 
-        // for this test data do...
-
         // from question
-        sol.solution(new int[]{1, 3, 6, 4, 1, 2}); // 5
-        sol.solution(new int[]{1, 2, 3}); // 4
-        sol.solution(new int[]{-1, -3}); //1
+        assert sol.solution(new int[]{1, 3, 6, 4, 1, 2}) == 5;
+        assert sol.solution(new int[]{1, 2, 3}) == 4;
+        assert sol.solution(new int[]{-1, -3}) == 1;
 
         // at the limits
-        sol.solution(IntStream.rangeClosed(1,100000).toArray());
-        sol.solution(IntStream.rangeClosed(-100000,-1).toArray());
+        assert sol.solution(IntStream.rangeClosed(1,100000).toArray()) == 100001;
+        assert sol.solution(IntStream.rangeClosed(-100000,-1).toArray()) == 1;
 
         // other examples
         //sol.solution(Stream.of("a", "b", "c").collect(Collectors.toList()));
