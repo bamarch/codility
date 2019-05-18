@@ -1,13 +1,12 @@
-package solutions.march;
+package solutions.march.nailingplanks;
+//----------------------------------------------------------------------------------------------------------------------
+// Copy from here until the next dotted line when submitting to codility
 
 import static java.lang.Integer.max;
 import static java.lang.Integer.min;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 //   Given two non-empty arrays A and B consisting of N integers and a non-empty array C consisting of M integers, returns the minimum number of nails that, used sequentially, allow all the planks to be nailed.
@@ -38,17 +37,18 @@ class Solution {
     public int solution(int[] A, int[] B, int[] C) {
 
         // Sort the nails in C, so we can use binary search
-        List <Integer> nailValuesSorted = Arrays.stream(C)
-            .boxed()
-            .sorted()
-            .collect(Collectors.toList());
+        int[] nailValuesSorted = new int[C.length];
+        System.arraycopy(C, 0, nailValuesSorted, 0, C.length );
+        Arrays.sort(nailValuesSorted);
         //System.out.println(nailValuesSorted);
 
-        // Create list of the original indices, sorted so the original position of nailValuesSorted[i] can be found as nailIndicesSorted[i]
-        List <Integer> nailIndicesSorted = IntStream.range(0,C.length)
-            .boxed()
-            .sorted(Comparator.comparing(I  -> C[I]))
-            .collect(Collectors.toList());
+        // Create array containing the original indices, sorted so the original
+        // position of nailValuesSorted[i] can be found as nailIndicesSorted[i]
+        Integer[] nailIndicesSorted = new Integer[C.length]; // we box the ints so we can use Arrays.sort
+        for (int i = 0; i < C.length; i++) {
+            nailIndicesSorted[i]=i;
+        }
+        Arrays.sort(nailIndicesSorted, Comparator.comparingInt(i  -> C[i]));
         //System.out.println(nailIndicesSorted);
 
         // This is the result, we return -1 if even with all M nails you cannot nail all N planks
@@ -64,7 +64,7 @@ class Solution {
 
             // Returns index if A[K] is found, otherwise returns (-(insertion point) -1)
             //System.out.println("Searching for A[K]: " + A[K]);
-            int binarySearchResult = Collections.binarySearch(nailValuesSorted, A[K]);
+            int binarySearchResult = Arrays.binarySearch(nailValuesSorted, A[K]);
 
             // We need to parse the results
             int aValidSortedNailIndex;
@@ -81,7 +81,7 @@ class Solution {
                 // e.g. find 2 in {0,2,2,3} -> 1 or 2
                 // we found a nail that matches the lower bound, now we search linearly left for the same value, to make sure we have the first occurence
                 for (int a = binarySearchResult; a >= 0; a--) {
-                    if (A[K] == nailValuesSorted.get(a)) {
+                    if (A[K] == nailValuesSorted[a]) {
                         //System.out.println("assigning, a: " + a);
                         minSortedNailIndex = a;
                     } else {
@@ -101,7 +101,7 @@ class Solution {
 
             // Check that our minimum is valid when it did not match a nail value
             //System.out.println("minSortedNailIndex: " + minSortedNailIndex);
-            if (B[K] < nailValuesSorted.get(minSortedNailIndex)) {
+            if (B[K] < nailValuesSorted[minSortedNailIndex]) {
                 minOriginalNailIndexForAllPlanks = -1;
                 break;
             }
@@ -122,10 +122,10 @@ class Solution {
                 }
                 // Stop searching if the nail value exceeds the maximum for this plank
                 // Note we don't need to check plank minimum A[K], because we are starting from smallest valid nail value in nailValuesSorted
-                if (B[K] < nailValuesSorted.get(i)) {
+                if (B[K] < nailValuesSorted[i]) {
                     break;
                 } else {
-                    minOriginalNailIndex = min(minOriginalNailIndex, nailIndicesSorted.get(i));
+                    minOriginalNailIndex = min(minOriginalNailIndex, nailIndicesSorted[i]);
                 }
             }
 
