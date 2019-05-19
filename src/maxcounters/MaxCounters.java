@@ -55,26 +55,35 @@ package maxcounters;
 //----------------------------------------------------------------------------------------------------------------------
 // Copy from here until the next dotted line when submitting to codility
 
-class Solution {
-    public int solution(int[] A) {
+import static java.lang.Math.max;
 
-//        Integer[] boxedA = new Integer[A.length];
-//        for (int i = 0; i < A.length; i++) {
-//            boxedA[i] = A[i];
-//        }
-//        HashSet hashSet = new HashSet<Integer>(Arrays.asList(boxedA));
-//
-//        int smallestAbsentInt = 100001;
-//        for (int i = 1; i <= 100000 ; i++) {
-//            if (!hashSet.contains(i)) {
-//                smallestAbsentInt = i;
-//                break;
-//            }
-//        }
-//
-//        //System.out.println(smallestAbsentInt);
-//        return smallestAbsentInt;
-        return -1;
+import java.util.Arrays;
+
+class Solution {
+    public int[] solution(int N, int[] A) {
+        // Return array, int[] is initialised to zero by default
+        int[] R = new int[N];
+        int maxValue = 0;
+
+        // Loop over A, elements refer to a counter X or to N+1
+        for (int K = 0; K < A.length; K++) {
+            int X = A[K];
+
+            // A counter is specified, increment its value
+            if (1 <= X && X <= N ) {
+                R[X-1] = R[X-1] + 1; // account for arrays being indexed from zero
+                maxValue = max(maxValue, R[X-1]); // record this so we don't require a loop later on
+            }
+            // N+1 is specified, set all counters in the results array of length N to current max value
+            if (X == N + 1) {
+                for (int i = 0; i < N; i++) {
+                    R[i] = maxValue;
+                }
+            }
+            //System.out.println(Arrays.toString(R));
+        }
+
+        return R;
     }
 }
 
@@ -85,16 +94,22 @@ public class MaxCounters {
     public static void main(String[] args) {
         Solution sol = new Solution();
 
-//        // from question
-//        assert sol.solution(new int[]{1, 3, 6, 4, 1, 2}) == 5;
-//        assert sol.solution(new int[]{1, 2, 3}) == 4;
-//        assert sol.solution(new int[]{-1, -3}) == 1;
-//
-//        // at the limits
-//        assert sol.solution(IntStream.rangeClosed(1,100000).toArray()) == 100001;
-//        assert sol.solution(IntStream.rangeClosed(-100000,-1).toArray()) == 1;
+        // from question
+        int[] answer1 = sol.solution(
+            5,
+            new int[]{3, 4, 4, 6, 1, 4, 4}
+        );
 
-        // other examples
-        //sol.solution(Stream.of("a", "b", "c").collect(Collectors.toList()));
+        //System.out.println("Was expecting:");
+        //System.out.println(Arrays.toString(new int[] {0, 0, 1, 0, 0}));
+        //System.out.println(Arrays.toString(new int[] {0, 0, 1, 1, 0}));
+        //System.out.println(Arrays.toString(new int[] {0, 0, 1, 2, 0}));
+        //System.out.println(Arrays.toString(new int[] {2, 2, 2, 2, 2}));
+        //System.out.println(Arrays.toString(new int[] {3, 2, 2, 2, 2}));
+        //System.out.println(Arrays.toString(new int[] {3, 2, 2, 3, 2}));
+        //System.out.println(Arrays.toString(new int[] {3, 2, 2, 4, 2}));
+
+        assert Arrays.equals(answer1, new int[]{3,2,2,4,2});
+
     }
 }
