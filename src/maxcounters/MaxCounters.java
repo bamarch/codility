@@ -56,14 +56,13 @@ package maxcounters;
 // Copy from here until the next dotted line when submitting to codility
 
 import static java.lang.Math.max;
-
 import java.util.Arrays;
 
 class Solution {
     public int[] solution(int N, int[] A) {
-        // Return array, int[] is initialised to zero by default
         int[] R = new int[N];
         int maxValue = 0;
+        int baseline = 0;
 
         // Loop over A, elements refer to a counter X or to N+1
         for (int K = 0; K < A.length; K++) {
@@ -71,16 +70,21 @@ class Solution {
 
             // A counter is specified, increment its value
             if (1 <= X && X <= N ) {
-                R[X-1] = R[X-1] + 1; // account for arrays being indexed from zero
+                R[X-1] = max(baseline + 1, R[X-1] + 1); // increment, or set to baseline and increment if required
                 maxValue = max(maxValue, R[X-1]); // record this so we don't require a loop later on
             }
+
             // N+1 is specified, set all counters in the results array of length N to current max value
             if (X == N + 1) {
-                for (int i = 0; i < N; i++) {
-                    R[i] = maxValue;
-                }
+                // We avoid use of an expensive nested loop by updating a variable instead
+                baseline = maxValue;
             }
             //System.out.println(Arrays.toString(R));
+        }
+
+        // Any values < baseline must be set to that value, because they should have been increased by maxCounter
+        for (int i = 0; i < N; i++) {
+            R[i] = Math.max(baseline, R[i]);
         }
 
         return R;
