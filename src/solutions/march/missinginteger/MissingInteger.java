@@ -51,7 +51,7 @@ class Solution {
 
 public class MissingInteger {
     public static void main(String[] args) {
-        maxcounters.Solution sol = new maxcounters.Solution();
+        Solution sol = new Solution();
 
         // from question
         assert sol.solution(new int[]{1, 3, 6, 4, 1, 2}) == 5;
